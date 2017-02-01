@@ -3,7 +3,46 @@
 #include <cstdlib>
 #include <string.h>
 
+struct tree {
+	int x;
+	int counter;
+	struct tree *left;
+	struct tree *right;
+};
 
+int enter(int value, tree *temp) {
+	if (temp == NULL) {
+		temp = (tree *)malloc(sizeof(struct tree));
+		if (temp == NULL) {
+			printf("Error");
+			exit(1);
+		}
+		temp->left = NULL;
+		temp->right = NULL;
+		temp->x = value;
+		return 1;
+	}
+	else if (value == temp->x) {
+		temp->counter++;
+		return 1;
+	}
+	else if (value < temp->x)
+		enter(value, temp->left);
+	else
+		enter(value, temp->right);
+}
+
+int back(tree *temp) {
+	
+	if (!temp) return NULL;
+	
+	back(temp->left);
+	
+	for(int i =0;i<temp->counter;i++)
+		printf("%d ",temp->x);
+	
+	back(temp->right);
+}
 
 
 int main() {
@@ -11,50 +50,30 @@ int main() {
 
 	//1		//Use the code presented at the lecture to create a BST containing numbers entered by the user(read numbers until the user enters a zero).
 			//Print all elements in ascending order.Support multiple occurences of the same value by providing a counter for each element of the tree.
+	tree *root,*temp;
+	root = (tree *)malloc(sizeof(struct tree));
 	
-	/*
-	typedef
-		struct bstel {
-		int data;
-		struct bstel *left;
-		struct bstel *right;
-	} bn;
-	int find(int key, struct bstel *node)
-	{
-		if (!node) return 0; // not found 
-		if (key == node->data)
-			return 1; /* found! 
-		if (key < node->data)
-			return find(key, node->left);
+	root->left = NULL;
+	root->right = NULL;
+
+	printf("Enter 1 value : ");
+	scanf("%d", &root->x);
+	root->counter = 1;
+	
+	for (int i = 0;; i++) {
+		temp = root;
+		printf("Enter %d value : ", (i + 2));
+		int value;
+		scanf("%d", &value);
+		if (value == 0)
+			break;
 		else
-			return find(key, node->right);
+			enter(value, temp);
 	}
-	int insert(bn *p, bn **root)
-	{
-		if (*root && (*root)->data == p->data)
-			return 1; // already present 
-		if (!*root) { // empty tree 
-			*root = p;
-			return 0;
-		}
-		else
-			if (p->data > (*root)->data)
-				insert(p, &((*root)->right));
-			else
-				insert(p, &((*root)->left));
-		return 0;
-		int ins_el(int key, bn **root)
-		{
-			bn *p;
-			p = (bn*)malloc(sizeof(bn));
-			if (!p) return 2; // out of memory
-			p->data = key;
-			p->left = p->right = NULL;
-			return insert(p, root);
-		}
+	
+	temp = root;
 
-
-		*/
+	back(temp);
 
 	//2		//For the sentence : "Please bring me some tea and coffee", create a copy of it with the word "and" replaced with "or".Use following functions : strstr, strcpy(strncpy), strcat.
 
