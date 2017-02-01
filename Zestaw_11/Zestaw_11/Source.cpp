@@ -28,7 +28,8 @@ int main() {
 			return find(key, node->left);
 		else
 			return find(key, node->right);
-	}	int insert(bn *p, bn **root)
+	}
+	int insert(bn *p, bn **root)
 	{
 		if (*root && (*root)->data == p->data)
 			return 1; // already present 
@@ -41,7 +42,8 @@ int main() {
 				insert(p, &((*root)->right));
 			else
 				insert(p, &((*root)->left));
-		return 0;		int ins_el(int key, bn **root)
+		return 0;
+		int ins_el(int key, bn **root)
 		{
 			bn *p;
 			p = (bn*)malloc(sizeof(bn));
@@ -56,31 +58,21 @@ int main() {
 
 	//2		//For the sentence : "Please bring me some tea and coffee", create a copy of it with the word "and" replaced with "or".Use following functions : strstr, strcpy(strncpy), strcat.
 
-			//	strstr,										strcpy(strncpy),				strcat
-			// szuka frazy i odcina pocz¹tek					kopiuje					dokleja
-
+	/*
 	char *sentence = "Please bring me some tea and coffee";
 	
-	char *end = (char *)malloc(sizeof(strstr(sentence, "and")));
-		end = strstr(sentence, "and");
-	
-	char *coffee = (char *)malloc(sizeof(strstr(sentence, "coffee")));
-		coffee = strstr(end, "coffee");
+	char *end = strstr(sentence, "and");	//and coffee
 		
 	char *fin = (char *)malloc(sizeof(sentence));
-	strcpy(fin, sentence - sizeof(end));
+	strncpy(fin, sentence,end-sentence);	//Please bring me some tea 
 		
+	char *coffee = strstr(end, "coffee");	//coffee
 		
-		
-	//char *copy = (char *)malloc(sizeof(sentence));
-	//strncpy(copy, sentence, sizeof(sentence));
-	
-	//int len = strlen(ptr);
-
+	strcat(fin, "or ");		//Please bring me some tea or 
+	strcat(fin, coffee);	//Please bring me some tea or coffee
 	
 	printf("%s\n", fin);
-
-
+	*/
 
 	return 0;
 }
