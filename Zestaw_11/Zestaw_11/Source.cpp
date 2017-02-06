@@ -10,7 +10,8 @@ struct tree {
 	struct tree *right;
 };
 
-int enter(int value, tree *temp) {
+void enter(int value, tree *temp) {
+
 	if (temp == NULL) {
 		temp = (tree *)malloc(sizeof(struct tree));
 		if (temp == NULL) {
@@ -20,28 +21,26 @@ int enter(int value, tree *temp) {
 		temp->left = NULL;
 		temp->right = NULL;
 		temp->x = value;
-		return 1;
+		temp->counter = 1;
 	}
-	else if (value == temp->x) {
+	else if (value == temp->x)
 		temp->counter++;
-		return 1;
-	}
 	else if (value < temp->x)
-		enter(value, temp->left);
-	else
+		enter(value, temp);
+	else if (value > temp->x)
 		enter(value, temp->right);
 }
 
 int back(tree *temp) {
 	
 	if (!temp) return NULL;
-	
 	back(temp->left);
-	
+
 	for(int i =0;i<temp->counter;i++)
 		printf("%d ",temp->x);
 	
 	back(temp->right);
+
 }
 
 
