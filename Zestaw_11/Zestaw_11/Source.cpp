@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <string.h>
+#define PRINT(a) printf("\n%p ",(a));
 
 struct tree {
 	int x;
@@ -10,25 +11,25 @@ struct tree {
 	struct tree *right;
 };
 
-void enter(int value, tree *temp) {
+void enter(int value, tree **temp) {
 
-	if (temp == NULL) {
-		temp = (tree *)malloc(sizeof(struct tree));
-		if (temp == NULL) {
+	if (*temp == NULL) {
+		*temp = (tree *)malloc(sizeof(struct tree));
+		if (*temp == NULL) {
 			printf("Error");
 			exit(1);
 		}
-		temp->left = NULL;
-		temp->right = NULL;
-		temp->x = value;
-		temp->counter = 1;
+		(*temp)->left = NULL;
+		(*temp)->right = NULL;
+		(*temp)->x = value;
+		(*temp)->counter = 1;
 	}
-	else if (value == temp->x)
-		temp->counter++;
-	else if (value < temp->x)
-		enter(value, temp);
-	else if (value > temp->x)
-		enter(value, temp->right);
+	else if (value == (*temp)->x)
+		(*temp)->counter++;
+	else if (value < (*temp)->x)
+		enter(value, &((*temp)->left));
+	else if (value > (*temp)->x)
+		enter(value, &((*temp)->right));
 }
 
 int back(tree *temp) {
@@ -67,7 +68,7 @@ int main() {
 		if (value == 0)
 			break;
 		else
-			enter(value, temp);
+			enter(value, &temp);
 	}
 	
 	temp = root;
